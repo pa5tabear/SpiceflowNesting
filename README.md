@@ -1,4 +1,4 @@
-# SpiceflowNesting
+# SpiceflowNesting ![CI](https://github.com/example/spiceflownesting/actions/workflows/ci.yml/badge.svg)
 
 > 📑 **Planning Note:** The detailed roadmap (original MVP & new Codex track) now lives in [`docs/SPRINT_PLAN.md`](docs/SPRINT_PLAN.md). This README only carries the quick-start instructions.
 
@@ -27,4 +27,10 @@ cd <repo>
 cp .env.example .env  # add your keys
 poetry install
 poetry run python -m scheduler
+```
+
+### Database Migrations
+
+```bash
+poetry run alembic upgrade head
 ```
