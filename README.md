@@ -1,5 +1,7 @@
 # SpiceflowNesting
 
+> 📑 **Planning Note:** The detailed roadmap (original MVP & new Codex track) now lives in [`docs/SPRINT_PLAN.md`](docs/SPRINT_PLAN.md). This README only carries the quick-start instructions.
+
 This repository contains a reference scaffold for a rental-listing monitor and agent. It includes a 10‑sprint project plan and minimal runnable code skeleton. Supply your API keys in `.env` and expand each scraper to start experimenting.
 
 ## 10‑Sprint Project Plan
