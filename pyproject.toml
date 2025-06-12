@@ -1,0 +1,37 @@
+[project]
+name = "spiceflownesting"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Codex",email = "codex@openai.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.0",
+    "sqlalchemy>=2.0",
+    "openai>=1.0",
+    "httpx>=0.25",
+    "beautifulsoup4>=4.12",
+    "apscheduler>=3.10",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+black = "*"
+ruff = "*"
+
