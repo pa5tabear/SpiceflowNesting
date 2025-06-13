@@ -35,6 +35,8 @@ def score_listing(listing: Listing, market_ppsf_25: float) -> dict:
         x in (listing.amenities or "") for x in ["dishwasher", "air", "laundry"]
     ):
         return {"passed": False}
+    if listing.lat is None or listing.lon is None:
+        return {"passed": False}
     if haversine_miles(listing.lat, listing.lon) > settings.MAX_DISTANCE_MILES:
         return {"passed": False}
 
