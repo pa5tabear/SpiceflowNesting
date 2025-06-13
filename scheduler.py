@@ -14,6 +14,7 @@ Session = sessionmaker(engine)
 
 SCRAPERS = {
     "zillow": "scrapers.zillow",
+    "craigslist": "scrapers.craigslist",
 }
 
 
