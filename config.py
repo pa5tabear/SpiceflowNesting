@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     GEOCODER_API_KEY: str | None = None
     OPENAI_API_KEY: str = ""
     SENDGRID_API_KEY: str | None = None
+    SENDGRID_TO: str | None = None
+    SENDGRID_FROM: str = "noreply@example.com"
     SLACK_WEBHOOK_URL: str | None = None
     DOWNTOWN_LAT: float = 42.2808
     DOWNTOWN_LON: float = -83.7480
