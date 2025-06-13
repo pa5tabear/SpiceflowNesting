@@ -16,7 +16,7 @@ This repository contains a reference scaffold for a rental-listing monitor and a
 |6|Scheduler (4×/day)|APScheduler job table, CLI|Asyncio app, dedupe runs|`scheduler.py`, docs|
 |7|Scoring algorithms v1|Deterministic score 0–100|Market stats, amenities, sentiment|`scoring.py`, tests|
 |8|Agentic layer|Reflex-style loop|LangChain or CrewAI|`agent.py`, architecture doc|
-|9|Notification & Feedback|Daily email and Slack pings|Jinja templates, webhook feedback|`notifier.py`, `feedback.py`|
+|9|Notification & Feedback|Daily email alerts|Jinja templates, webhook feedback|`notifier.py`, `feedback.py`|
 |10|Observability & Launch|End‑to‑end test, prod deployment guide|Structured logging, Docker Compose|`DEPLOYMENT.md`, release tag|
 
 ## Quick‑start
