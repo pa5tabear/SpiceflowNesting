@@ -1,12 +1,16 @@
 from pathlib import Path
 from datetime import date
 import httpx
+from loguru import logger
+from prometheus_client import Counter
 from config import settings
 
 TEMPLATE = Path(__file__).parent / "templates" / "digest.html"
 
 # Repository root used for storing digest snapshots
 REPO_ROOT = Path(__file__).resolve().parent
+
+EMAIL_COUNTER = Counter("emails_sent_total", "Digest emails sent")
 
 
 def _save_snapshot(html: str) -> None:
@@ -49,3 +53,5 @@ async def send_digest(listings):
         )
         resp.raise_for_status()
     _save_snapshot(html)
+    EMAIL_COUNTER.inc()
+    logger.info("Digest sent with %d listings", len(listings))
