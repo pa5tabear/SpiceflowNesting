@@ -1,0 +1,7 @@
+# Edit these values and restart the scheduler
+max_rent: 2200
+min_beds: 2
+radius_miles: 1.0
+required_amenities:
+  - dishwasher
+  - laundry 
