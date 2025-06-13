@@ -1,22 +1,22 @@
 ## 1 · Sprint Goal (≤25 words)
-Automate 4×/day scraping with dedup logic and run logging, using the new criteria-aware scrapers.
+Inject user criteria into site URLs **and** automate 4×-daily deduped scraping with run logging.
 
 ## 2 · Deliverables & Acceptance Criteria
-- **Interval scheduler** – `scheduler.py` obeys `RUN_INTERVAL_HOURS`; two runs 6 h apart insert ≤1 duplicate listing.
-- **Run log table** – SQLAlchemy `Run(id, started_at)` + Alembic migration; each job row inserted and visible in tests.
-- **CLI command** – `poetry run rentbot run-once` executes one full cycle and exits 0; README updated.
+- **Criteria URL filters** – `search_criteria.yaml` parsed; `url_helpers.py` builds price/bed params for Zillow + Craigslist; integration test proves pre-filtered results pass max_rent & min_beds.
+- **Interval scheduler & run log** – `scheduler.py` uses `RUN_INTERVAL_HOURS`; new `runs` table (+ migration) records each job; duplicate listings per run ≤1.
+- **CLI entrypoint** – `poetry run rentbot run-once` triggers one cycle; README updated.
 
 ## 4 · Workflow
-1. Think: design dedupe query & logging schema.  
-2. Plan: write failing tests for duplicate prevention and CLI exit code.  
-3. Code: implement (<120 LOC) plus migration.  
-4. Test: pytest; CI green.  
+1. Think: map criteria → site params, design dedupe query.
+2. Plan: write failing tests (URL builder, dupe prevention, CLI exit 0).
+3. Code: implement all features (<180 LOC total) & migration.
+4. Test: unit + optional `--live` integration; CI green.
 5. PR: branch `sprint-07`, request review.
 
 ## 5 · Self-Review Rubric
-- [ ] CI green; coverage ≥85 % new lines.  
-- [ ] LOC ≤120; no new deps.  
-- [ ] README documents CLI.  
+- [ ] CI green; coverage ≥85 % on new code.
+- [ ] No new deps; LOC delta ≤180.
+- [ ] README documents criteria YAML and CLI.
 - [ ] Commit prefix `feat(s07):`.
 
 ## 6 · Proposed Next Sprint
