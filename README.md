@@ -26,7 +26,7 @@ git clone <repo>
 cd <repo>
 cp .env.example .env  # add your keys
 poetry install
-poetry run python -m scheduler
+poetry run rentbot run-once  # single cycle
 ```
 
 ### Database Migrations

@@ -30,6 +30,9 @@ line-length = 88
 [tool.pytest.ini_options]
 addopts = "-ra"
 
+[project.scripts]
+rentbot = "scheduler:cli"
+
 [tool.poetry.dev-dependencies]
 pytest = "*"
 black = "*"

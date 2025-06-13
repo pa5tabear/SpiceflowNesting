@@ -15,7 +15,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase
 
-__all__ = ["Source", "Listing", "Score", "Base"]
+__all__ = ["Source", "Listing", "Score", "Run", "Base"]
 
 
 class Base(DeclarativeBase):
@@ -67,3 +67,12 @@ class Score(Base):
     score: float | None = Column(Float)
     subscores: str | None = Column(String)
     created_at: dt.datetime = Column(DateTime, default=dt.datetime.utcnow)
+
+
+class Run(Base):
+    """Log of scheduler runs."""
+
+    __tablename__ = "runs"
+
+    id: int = Column(Integer, primary_key=True)
+    started_at: dt.datetime = Column(DateTime, default=dt.datetime.utcnow)
