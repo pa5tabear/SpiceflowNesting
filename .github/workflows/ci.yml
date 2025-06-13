@@ -10,6 +10,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pydantic sqlalchemy openai httpx beautifulsoup4 apscheduler pytest black ruff pydantic-settings pytest-cov
-      - run: ruff .
+      - run: ruff check .
       - run: black --check .
       - run: pytest --cov=models --cov-fail-under=85

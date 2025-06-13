@@ -1,10 +1,10 @@
 from pathlib import Path
 from pydantic_settings import BaseSettings
-from pydantic import PostgresDsn
+from pydantic import AnyUrl
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: PostgresDsn = (
+    DATABASE_URL: AnyUrl | str = (
         "postgresql+psycopg://ai_bot:ai_bot@localhost:5432/ai_bot"
     )
     GEOCODER_API_KEY: str | None = None
