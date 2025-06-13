@@ -7,10 +7,11 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-from models import Source, Listing, Run
+from models import Source, Listing, Run, Score
 from config import settings
 from scoring import refresh_scores
 from utils.geo import geocode_address
+from notifier import send_digest
 
 engine = create_engine(settings.DATABASE_URL, future=True, echo=False)
 Session = sessionmaker(engine)
@@ -29,6 +30,16 @@ async def run_once():
         *(run_scraper(name, mod, db) for name, mod in SCRAPERS.items())
     )
     refresh_scores(db)
+    top = (
+        db.query(Listing)
+        .join(Score, Score.listing_id == Listing.id)
+        .filter(Score.score >= 85)
+        .order_by(Score.score.desc())
+        .limit(10)
+        .all()
+    )
+    if top:
+        await send_digest(top)
     db.close()
 
 
