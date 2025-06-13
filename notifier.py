@@ -1,8 +1,20 @@
 from pathlib import Path
+from datetime import date
 import httpx
 from config import settings
 
 TEMPLATE = Path(__file__).parent / "templates" / "digest.html"
+
+# Repository root used for storing digest snapshots
+REPO_ROOT = Path(__file__).resolve().parent
+
+
+def _save_snapshot(html: str) -> None:
+    """Write a copy of the latest digest to docs/SampleOutputs."""
+    out_dir = REPO_ROOT / "docs" / "SampleOutputs"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    fname = f"{date.today()}_digest.md"
+    (out_dir / fname).write_text(html)
 
 
 def render_digest(listings):
@@ -36,3 +48,4 @@ async def send_digest(listings):
             headers={"Authorization": f"Bearer {settings.SENDGRID_API_KEY}"},
         )
         resp.raise_for_status()
+    _save_snapshot(html)
