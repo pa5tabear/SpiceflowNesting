@@ -2,12 +2,11 @@ from bs4 import BeautifulSoup
 import httpx
 import json
 
-
-BASE = "https://www.zillow.com"
+from .url_helpers import build_zillow_url
 
 
 async def fetch_raw():
-    url = f"{BASE}/homes/for_rent/Ann-Arbor-MI_rb/"
+    url = build_zillow_url()
     async with httpx.AsyncClient(timeout=15) as client:
         r = await client.get(url, headers={"User-Agent": "Mozilla/5.0"})
     soup = BeautifulSoup(r.text, "html.parser")
