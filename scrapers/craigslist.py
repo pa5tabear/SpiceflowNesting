@@ -3,12 +3,11 @@ import json
 from bs4 import BeautifulSoup
 import httpx
 
-BASE = "https://annarbor.craigslist.org"
-SEARCH_PATH = "/search/apa"
+from .url_helpers import build_craigslist_url
 
 
 async def fetch_raw():
-    url = f"{BASE}{SEARCH_PATH}"
+    url = build_craigslist_url()
     async with httpx.AsyncClient(timeout=15) as client:
         r = await client.get(url, headers={"User-Agent": "Mozilla/5.0"})
     soup = BeautifulSoup(r.text, "html.parser")

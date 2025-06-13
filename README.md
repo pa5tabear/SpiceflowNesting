@@ -29,6 +29,10 @@ poetry install
 poetry run rentbot run-once  # single cycle
 ```
 
+Edit `search_criteria.yaml` to configure `max_rent` and `min_beds`. The
+`rentbot` CLI triggers one scrape cycle, while `python -m scheduler` starts
+the interval job (every `RUN_INTERVAL_HOURS`).
+
 ### Database Migrations
 
 ```bash
