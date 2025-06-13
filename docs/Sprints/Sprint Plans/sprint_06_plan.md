@@ -1,23 +1,22 @@
 ## 1 · Sprint Goal (≤25 words)
-Automate scraping 4× daily with deduplicated runs and a one-shot CLI entrypoint.
+Scrape only listings that already satisfy user-defined rent, beds, and amenity criteria by injecting filters into site URLs.
 
 ## 2 · Deliverables & Acceptance Criteria
-- **Interval scheduler** – `scheduler.py` uses `RUN_INTERVAL_HOURS` to schedule jobs; two consecutive runs add ≤1 duplicate listing (constraint enforced).
-- **Run log table** – new SQLAlchemy model `Run(id, started_at)` + Alembic migration; each job inserts a row.
-- **CLI command** – `poetry run rentbot run-once` triggers a single scrape + score cycle; README updated.
+- **Criteria config** – New `search_criteria.yaml` parsed by `config.py`; includes `max_rent`, `min_beds`, `radius_miles`, `required_amenities`.
+- **URL builders** – `scrapers/url_helpers.py` converts criteria → filter params for Zillow & Craigslist; unit tests compare expected URLs.
+- **Scraper integration** – `scrapers/zillow.py` & `scrapers/craigslist.py` use helpers; live integration test proves returned listings all pass max_rent & min_beds before local scoring.
 
 ## 4 · Workflow
-1. Think: design dedupe query & run logging.  
-2. Plan: write failing tests for duplicate prevention and CLI exit code.  
-3. Code: implement features (<120 LOC) and migration.  
-4. Test: `pytest`; ensure CI green.  
+1. Think: map generic criteria to each site's query syntax.
+2. Plan: write failing unit tests for URL construction and rent/bed filters.
+3. Code: implement YAML load, helpers (<120 LOC total), update scrapers.
+4. Test: unit + integration (`--live`); CI runs unit only; badge green.
 5. PR: branch `sprint-06`, request review.
 
 ## 5 · Self-Review Rubric
-- [ ] CI green; coverage ≥85 % on new lines.  
-- [ ] LOC delta ≤120; no new dependencies.  
-- [ ] `README.md` showcases CLI usage.  
-- [ ] Commit message prefix `feat(s06):`.
+- [ ] CI green; coverage ≥85 % for new code.
+- [ ] No new Python dependencies (use PyYAML from stdlib `yaml`).
+- [ ] LOC delta ≤120; commit prefix `feat(s06):`.
 
 ## 6 · Proposed Next Sprint
-Implement deterministic scoring algorithm v1. 
+Add interval scheduler and deduped run logging. 
