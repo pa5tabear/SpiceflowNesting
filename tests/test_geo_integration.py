@@ -77,6 +77,7 @@ def test_distance_filter(monkeypatch):
     assert score_listing(near, 1)["passed"]
     assert not score_listing(far, 1)["passed"]
 
+
 def test_scheduler_geo(monkeypatch):
     mod = types.ModuleType("m")
     mod.fetch_raw = fake_fetch_raw
