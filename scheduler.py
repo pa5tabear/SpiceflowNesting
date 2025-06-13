@@ -1,5 +1,6 @@
 import asyncio
-import logging
+from loguru import logger
+from prometheus_client import Counter
 from datetime import datetime
 import argparse
 from importlib import import_module
@@ -15,6 +16,7 @@ from notifier import send_digest
 
 engine = create_engine(settings.DATABASE_URL, future=True, echo=False)
 Session = sessionmaker(engine)
+RUN_COUNTER = Counter("runs_total", "Scheduler runs")
 
 SCRAPERS = {
     "zillow": "scrapers.zillow",
@@ -26,6 +28,8 @@ async def run_once():
     db = Session()
     db.add(Run())
     db.commit()
+    RUN_COUNTER.inc()
+    logger.info("Run started at {}", datetime.utcnow())
     await asyncio.gather(
         *(run_scraper(name, mod, db) for name, mod in SCRAPERS.items())
     )
@@ -44,7 +48,7 @@ async def run_once():
 
 
 async def run_scraper(name, module_path, db):
-    logging.info("Running %s at %s", name, datetime.utcnow())
+    logger.info("Running %s at %s", name, datetime.utcnow())
     mod = import_module(module_path)
     existing = db.query(Source).filter_by(name=name).first()
     source = existing or Source(name=name, url=module_path)

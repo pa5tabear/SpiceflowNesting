@@ -14,6 +14,10 @@ dependencies = [
     "httpx>=0.25",
     "beautifulsoup4>=4.12",
     "apscheduler>=3.10",
+    "fastapi",
+    "uvicorn",
+    "loguru",
+    "prometheus_client",
 ]
 
 

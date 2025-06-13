@@ -66,6 +66,7 @@ class Score(Base):
     listing_id: int = Column(Integer, ForeignKey("listings.id"), primary_key=True)
     score: float | None = Column(Float)
     subscores: str | None = Column(String)
+    feedback: int | None = Column(Integer)
     created_at: dt.datetime = Column(DateTime, default=dt.datetime.utcnow)
 
 
